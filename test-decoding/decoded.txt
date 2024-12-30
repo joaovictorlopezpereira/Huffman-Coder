@@ -1,0 +1,1 @@
+This is a test file for the program to be tested. If you want to, you can write a text in which a specific letter has a high frequency rate just for testing if this letter is going to be decoded by fewer 0s and 1s than the remaining characters in the alphabet. Currently, The encoding and decoding processes does not support line breaks.
