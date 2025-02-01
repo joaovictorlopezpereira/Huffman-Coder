@@ -14,7 +14,7 @@ typedef struct node {
 
 // Creates a node
 node* create_node(char character, int frequency) {
-  node* n = (node *)malloc(sizeof(node));
+  node* n      = (node *)malloc(sizeof(node));
   n->character = character;
   n->frequency = frequency;
   n->left      = NULL;
@@ -57,22 +57,20 @@ node* build_huffman_tree(int frequencies[]) {
     }
   }
 
-  // Builds the tree
+  // Holds the index of the two smallest nodes
+  int first, second;
+
+  // Builds the node made up from the two nodes with the least frequency
   while (size > 1){
-    int first, second;
-
-    // Builds the nodes made up from the two nodes with the least frequency
     two_nodes_with_least_freq(nodes, size, &first, &second);
-    node* left = nodes[first];
-    node* right = nodes[second];
-    node* parent = create_node('\0', left->frequency + right->frequency);
-    parent->left = left;
+    node* left    = nodes[first];
+    node* right   = nodes[second];
+    node* parent  = create_node('\0', left->frequency + right->frequency);
+    parent->left  = left;
     parent->right = right;
-
-    // Substitutes the two nodes by the parent
-    nodes[first] = parent;
+    nodes[first]  = parent;
     nodes[second] = nodes[size-1];
-    size -= 1;
+    size          = size - 1;
   }
 
   // Returns the root
@@ -89,10 +87,12 @@ void generate_codes(node* root, char* code, int depth, char codes[256][256]) {
   if (root->left) {
     code[depth] = '0';
     generate_codes(root->left, code, depth + 1, codes);
+    code[depth] = '\0';
   }
   if (root->right) {
     code[depth] = '1';
     generate_codes(root->right, code, depth + 1, codes);
+    code[depth] = '\0';
   }
 }
 

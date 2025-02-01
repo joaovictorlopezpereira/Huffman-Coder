@@ -7,6 +7,7 @@
 // Encodes the text from ASCII to Huffman coding
 void encode_text(FILE *input_file, const char codes[256][256], const char *output_file) {
   FILE *output = fopen(output_file, "w");
+
   if (!output) {
     printf("It was not possible to open the file %s.\n.", output_file);
     exit(1);
@@ -20,7 +21,6 @@ void encode_text(FILE *input_file, const char codes[256][256], const char *outpu
     }
     c = fgetc(input_file);
   }
-
   fclose(output);
 }
 
@@ -38,7 +38,6 @@ void save_code_table(const char codes[256][256], const int frequencies[256], con
       fprintf(file, "'%c' (%d): %s\n", (char)i, frequencies[i], codes[i]);
     }
   }
-
   fclose(file);
 }
 
@@ -47,23 +46,23 @@ void encode_process(const char *input_filename, const char *output_filename, con
   // Tries to open the input file
   FILE *file = fopen(input_filename, "r");
   if (file == NULL) {
-      printf("It was not possible to open the file %s.\n", input_filename);
-      exit(1);
+    printf("It was not possible to open the file %s.\n", input_filename);
+    exit(1);
   }
 
   // Initializes an array with the frequencies of the 256 ASCII characters.
   int frequencies[256] = {0};
   int c = fgetc(file);
   while (c != EOF) {
-      frequencies[c] += 1;
-      c = fgetc(file);
+    frequencies[c] += 1;
+    c = fgetc(file);
   }
 
   // Builds the Huffman tree
   node *root = build_huffman_tree(frequencies);
 
   // Computes the best codes for each character
-  char codes[256][256] = {0};
+  char codes[256][256];
   char code[256];
   generate_codes(root, code, 0, codes);
 
@@ -71,7 +70,7 @@ void encode_process(const char *input_filename, const char *output_filename, con
   encode_text(file, codes, output_filename);
   save_code_table(codes, frequencies, table_filename);
 
-   // Closes the file and frees the tree
+  // Closes the file and frees the tree
   fclose(file);
   free_tree(root);
 }
