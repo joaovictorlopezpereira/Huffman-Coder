@@ -1,6 +1,8 @@
 
 # Huffman-Coder
 
+## Description
+
 A text encoding and decoding system utilizing Huffman coding for efficient compression and decompression using a binary tree structure.
 
 -----
