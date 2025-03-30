@@ -8,11 +8,15 @@ A text encoding and decoding system utilizing Huffman coding for efficient compr
 -----
 ## How to Encode and Decode
 
+### Compiling the code
+
 You first need to compile the project. Make sure ``gcc`` is installed on your system, then compile the project by running:
 
 ``gcc main.c -o huffman.exe``
 
 You can choose a different name for the output file instead of ``huffman.exe``, but for the sake of simplicity, we will refer to it as ``huffman.exe`` throughout this document.
+
+Another option for compiling the code is to run ``build.bat`` or ``build.sh``, depending in which operational system you are using.
 
 ### Encoding Process
 
